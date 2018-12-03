@@ -66,11 +66,16 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script>
+      function setCookie(cname, cvalue) {
+          document.cookie = cname + "=" + cvalue + ";path=/";
+      }
+
       $('#form').submit(function(event) {
           event.preventDefault();
           $.post("https://ridgefieldttt.com/2340api.php", { dest: "register", user: $('#username').val(), pass: $('#password').val(), type: $('#type').val() })
               .done(function( data ) {
                   if (data === 'false') {
+                      setCookie('user', $('#username').val());
                       $('#output').html('<br /><div class="alert alert-danger" role="alert">Could not register.</div>');
                   } else {
                       window.location.href = "dashboard.html";
