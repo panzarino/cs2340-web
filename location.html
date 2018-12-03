@@ -35,6 +35,10 @@
           <h6>Address: <span id="address"></span></h6>
           <h6>Phone: <span id="phone"></span></h6>
           <h6>Website: <span id="website"></span></h6>
+          <h6>Donations:</h6>
+          <div class="list-group" id="list">
+
+          </div>
         </div>
       </div>
     </div>
@@ -59,10 +63,21 @@
             }
         };
 
+        var donations = [];
+        var filteredDonations = [];
+
+        function displayDonations() {
+            var output = '';
+            filteredDonations.forEach(function(donation, index) {
+                var content = donation.split(',');
+                output += '<a href="donation.html?item=' + content[1] + "&user=" + content[4] + "&location=" + content[3] + "&date=" + content[2] + "&description=" + content[5] + "&value=" + content[6] + "&category=" + content[7] + '" class="list-group-item">' + content[1] + '</a>';
+            });
+            $('#list').html(output);
+        }
+
         $.get("https://ridgefieldttt.com/2340api.php?src=locations")
             .done(function( data ) {
                 var lines = data.split('\n');
-                var output = '';
                 var id = getUrlParameter('id');
                 lines.forEach(function(line, index) {
                     if (index == id) {
@@ -73,7 +88,20 @@
                         $('#website').html(content[6]);
                     }
                 });
-                $('#list').html(output);
+            });
+
+        $.get("https://ridgefieldttt.com/2340api.php?src=donations")
+            .done(function( data ) {
+                var lines = data.split('\n');
+                var id = getUrlParameter('id');
+                lines.forEach(function(line, index) {
+                    var content = line.split(',');
+                    if (content[3] == parseInt(id) + 1) {
+                        donations.push(line);
+                        filteredDonations.push(line);
+                    }
+                });
+                displayDonations();
             });
     </script>
 

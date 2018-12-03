@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Young Money</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Young Money</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" style="padding-top: 50px">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+          <h3 id="name"></h3>
+          <h6>User: <span id="user"></span></h6>
+          <h6>Location: <span id="location"></span></h6>
+          <h6>Date: <span id="date"></span></h6>
+          <h6>Description: <span id="description"></span></h6>
+          <h6>Value: <span id="value"></span></h6>
+          <h6>Category: <span id="category"></span></h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+
+        $('#name').html(getUrlParameter('item'));
+        $('#user').html(getUrlParameter('user'));
+        $('#location').html(getUrlParameter('location'));
+        $('#date').html(getUrlParameter('date'));
+        $('#description').html(getUrlParameter('description'));
+        $('#value').html(getUrlParameter('value'));
+        $('#category').html(getUrlParameter('category'));
+    </script>
+
+  </body>
+
+</html>
