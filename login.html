@@ -53,16 +53,11 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script>
-      function setCookie(cname, cvalue) {
-          document.cookie = cname + "=" + cvalue + ";path=/";
-      }
-
       $('#form').submit(function(event) {
           event.preventDefault();
           $.post("https://ridgefieldttt.com/2340api.php", { src: "login", user: $('#username').val(), pass: $('#password').val() })
               .done(function( data ) {
                   if (data === 'false') {
-                      setCookie('user', $('#username').val());
                       $('#output').html('<br /><div class="alert alert-danger" role="alert">Username or password is incorrect.</div>');
                   } else {
                       window.location.href = "dashboard.html";
