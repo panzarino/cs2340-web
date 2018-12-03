@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Young Money</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      #map {
+        height: 600px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Young Money</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" style="padding-top: 50px">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div id="map"></div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 10, center: {lat: 33.844873, lng: -84.390139}});
+            $.get("https://ridgefieldttt.com/2340api.php?src=locations")
+                .done(function( data ) {
+                    var lines = data.split('\n');
+                    lines.forEach(function(line, index) {
+                        if (line.length > 0) {
+                            var content = line.split(',');
+                            new google.maps.Marker({position: {lat: parseFloat(content[7]), lng: parseFloat(content[8])}, label: content[0], optimized: false, map: map});
+                        }
+                    });
+                });
+        }
+    </script>
+
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyYRrOoLEHk-V4T9O51h_P8frYyuoDlZQ&v=3.exp&callback=initMap"></script>
+
+  </body>
+
+</html>
